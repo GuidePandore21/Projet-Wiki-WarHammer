@@ -1,3 +1,15 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+logout:
+  path: /logout
+  methods: GET
+
+adminPage:
+  path: /admin/page
+  methods: GET
+
+register:
+  path: /register
+  methods: GET
