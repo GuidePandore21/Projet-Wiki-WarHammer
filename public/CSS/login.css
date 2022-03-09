@@ -27,7 +27,7 @@ html {
 .brand_logo_container {
     position: absolute;
     height: 170px;
-    width: 170px;
+    width: 250px;
     top: -75px;
     border-radius: 50%;
     background: #cfc7ae;
@@ -36,9 +36,8 @@ html {
 }
 .brand_logo {
     height: 150px;
-    width: 150px;
+    width: 230px;
     border-radius: 50%;
-    border: 2px solid white;
 }
 .form_container {
     margin-top: 100px;
