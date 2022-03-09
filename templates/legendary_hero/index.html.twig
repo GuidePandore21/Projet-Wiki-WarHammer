@@ -1,0 +1,152 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LegendaryHero{% endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %} {# check si l'utilisateur est connecté #}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-earmark-person" viewBox="0 0 16 16">
+                        <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2v9.255S12 12 8 12s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h5.5v2z"/>
+                    </svg>
+                    {{ app.user.username }}
+                {% endif %}
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ path('index') }}">Home</a>
+                    </li>
+                    {% if is_granted('ROLE_ADMIN') %} {# check si l'utilisateur est admin #}
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ path('adminPage') }}">AdminPage</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Race
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {% for race in races %}
+                                <a class="dropdown-item" href="{{ path('race', { 'id': race.id }) }}">{{ race.name }}</a>
+                            {% endfor %}
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Legendary Hero
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {% for legendary_hero in legendary_heros %}
+                                <a class="dropdown-item" href="{{ path('legendary_hero', { 'id': legendary_hero.id }) }}">{{ legendary_hero.name }}</a>
+                            {% endfor %}
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Hero
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {% for hero in heros %}
+                                <a class="dropdown-item" href="{{ path('hero', { 'id': hero.id }) }}">{{ hero.name }}</a>
+                            {% endfor %}
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ path('logout') }}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <br/>
+
+    <div class="container">
+
+        <div class="card border border-5" style="color: white; width: 100%">
+            <h3 class="card-title" style="text-align: center">{{ legendary_hero.name  }}</h3>
+            <img src="{{ legendary_hero.gallery }}" class="img-responsive.center-block border border-5" style="align-self: center; border-color: #514024" alt="Responsive image" width="30%">
+            <br/>
+            <div class="card-body border border-5">
+                <h5 style="text-align: center">Description</h5>
+                <br/>
+                <p class="card-text">{{ legendary_hero.description | nl2br }}</p>
+            </div>
+            <ul class="list-group list-group-flush border border-5">
+                <h5 style="text-align: center">Stats</h5>
+                <br/>
+                <li class="list-group-item">Health : {{ legendary_hero.health }}</li>
+                <li class="list-group-item">Leadership : {{ legendary_hero.leadership }}</li>
+                <li class="list-group-item">Melee Attack : {{ legendary_hero.MeleeAttack }}</li>
+                <li class="list-group-item">Melee Defense : {{ legendary_hero.MeleeDefence }}</li>
+                <li class="list-group-item">Charge Bonus : {{ legendary_hero.ChargeBonus }}</li>
+                <li class="list-group-item">Magical Attacks : {{ legendary_hero.MagicalAttacks }}</li>
+                <li class="list-group-item">Flaming Attacks : {{ legendary_hero.FlamingAttacks }}</li>
+            </ul>
+            <ul class="list-group list-group-flush border border-5">
+                <h5 style="text-align: center">Physic Damage Stats</h5>
+                <br/>
+                <li class="list-group-item">Missile Resistance : {{ legendary_hero.MissileResistance }}</li>
+                <li class="list-group-item">Weapon Damage : {{ legendary_hero.WeaponDamage }}</li>
+                <li class="list-group-item">Armour Piercing Damage : {{ legendary_hero.ArmourPiercingDamage }}</li>
+                <li class="list-group-item">Bonus Vs Large : {{ legendary_hero.BonusVsLarge }}</li>
+            </ul>
+            {% if legendary_hero.MissileDamage is not null %}
+                <ul class="list-group list-group-flush border border-5">
+                    <h5 style="text-align: center">Missile Damage Stats</h5>
+                    <br/>
+                    <li class="list-group-item">Missile Damage : {{ legendary_hero.MissileDamage }}</li>
+                    <li class="list-group-item">Armour Piercing Missile Damage : {{ legendary_hero.ArmourPiercingMissileDamage }}</li>
+                    <li class="list-group-item">Explosive Damage : {{ legendary_hero.ExplosiveDamage }}</li>
+                    <li class="list-group-item">Explosive Armour Piercing Damage : {{ legendary_hero.ExplosiveArmourPiercingDamage }}</li>
+                    <li class="list-group-item">Reload Time : {{ legendary_hero.ReloadTime }}</li>
+                    <li class="list-group-item">Ammunation : {{ legendary_hero.Ammunition }}</li>
+                    <li class="list-group-item">Range : {{ legendary_hero.RangeShot }}</li>
+                </ul>
+            {% endif %}
+            <div class="card-body border border-5">
+                <h5 style="text-align: center">Attributs</h5>
+                <br/>
+                <p>{{ legendary_hero.attribut | nl2br }}</p>
+            </div>
+
+            <div class="card-body border border-5">
+                <h5 style="text-align: center">Lords Effects</h5>
+                <br/>
+                <p>{{ legendary_hero.LordsEffects | nl2br }}</p>
+            </div>
+
+            <div class="card-body border border-5">
+                <h5 style="text-align: center">Items</h5>
+                <br/>
+                <p>{{ legendary_hero.items | nl2br }}</p>
+            </div>
+
+            <div class="card-body border border-5">
+                <h5 style="text-align: center">Mounts</h5>
+                <br/>
+                <p>{{ legendary_hero.mounts | nl2br }}</p>
+            </div>
+
+            {% if legendary_hero.MissileDamage is not null %}
+                <div class="card-body border border-5">
+                    <h5 style="text-align: center">Particularity</h5>
+                    <br/>
+                    <p>{{ legendary_hero.particularity | nl2br }}</p>
+                </div>
+            {% endif %}
+
+            <div class="card-body border border-5">
+                <h5 style="text-align: center">Strategy</h5>
+                <br/>
+                <p>{{ legendary_hero.strategy | nl2br }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
