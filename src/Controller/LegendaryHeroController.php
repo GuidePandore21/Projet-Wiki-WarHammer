@@ -20,15 +20,19 @@ class LegendaryHeroController extends AbstractController
 
     public function index(EntityManagerInterface $em, int $id, Request $request): Response
     {
+        // recherche dans la BDD par id un legendary_hero
         $legendary_hero = $em->getRepository(LegendaryHero::class)->findOneById($id);
 
+        // recherche dans la BDD de tous entitées dans les classes pour la navbar
         $races = $em->getRepository(Race::class)->findAll();
         $legendary_heros = $em->getRepository(LegendaryHero::class)->findAll();
         $heros = $em->getRepository(Hero::class)->findAll();
 
+        // instanciation du nouveau hero
         $new_legendary_hero = new LegendaryHero();
         $data=$request->request->all();
 
+        // implémentations des différents valeurs attribué au legendary_hero via le form
         if(count($data) > 0){
             $new_legendary_hero->setName($data["name"]);
             $new_legendary_hero->setGallery($data["gallery"]);
@@ -77,6 +81,7 @@ class LegendaryHeroController extends AbstractController
     public function delete_legendary_hero($id, EntityManagerInterface $em): Response
     {
 
+        // permet de delete le legendary_hero
         $legendary_hero=$em->getRepository(LegendaryHero::class)->findOneBy(['id'=>$id]);
         $em->remove($legendary_hero);
         $em->flush();

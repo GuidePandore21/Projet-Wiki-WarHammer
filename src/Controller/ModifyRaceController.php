@@ -17,11 +17,13 @@ class ModifyRaceController extends AbstractController
     public function index(EntityManagerInterface $em, int $id, Request $request): Response
     {
 
+        // recherche dans la BDD par id une race
         $race = $em->getRepository(Race::class)->findOneById($id);
 
         $new_race = new Race();
         $data=$request->request->all();
 
+        // pour modifier une race je supprime l'originale et j'en recréé un avec les valeurs qu'on a modifier
         if(count($data) > 0){
             $race=$em->getRepository(Race::class)->findOneBy(['id'=>$id]);
             $em->remove($race);

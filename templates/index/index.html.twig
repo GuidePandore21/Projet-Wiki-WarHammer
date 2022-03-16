@@ -4,6 +4,16 @@
 
 {% block body %}
 
+    <style>
+        body{
+            color: white;
+            background-attachment:fixed;
+            background-image: url("https://cdn1.epicgames.com/dda64c2956b54f1ba3cd97f6aaee775f/offer/EGS_TotalWarWARHAMMERIII_CreativeAssembly_S5-1920x1080-b286583ad1b5dfd733097a2af8f883b7.jpg");
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
@@ -61,10 +71,15 @@
         </div>
     </nav>
 
-    <h1>Total War Warhammer</h1>
+    <br>
 
-    <h1>Wiki</h1>
+    <h1 style="text-align: center">Wiki Total War Warhammer</h1>
 
-    <img src="https://imperium.news/wp-content/uploads/2021/02/Total-War-Warhammer-3-Logo-533x300.jpg" alt="Logo WarHammer wiki">
+    <br>
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %} {# check si l'utilisateur est connecté #}
+        <h3 style="text-align: center; align-self: center">Welcome {{ app.user.username }} !!!</h3>
+    {% endif %}
+
 
 {% endblock %}

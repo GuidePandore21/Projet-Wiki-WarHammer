@@ -16,11 +16,13 @@ class ModifyLegendaryHeroController extends AbstractController
      */
     public function index(EntityManagerInterface $em, int $id, Request $request): Response
     {
+        // recherche dans la BDD par id un legendary_hero
         $legendary_hero = $em->getRepository(LegendaryHero::class)->findOneById($id);
 
         $new_legendary_hero = new LegendaryHero();
         $data = $request->request->all();
 
+        // pour modifier un legendary_hero je supprime l'originale et j'en recréé un avec les valeurs qu'on a modifier
         if (count($data) > 0) {
             $legendary_hero = $em->getRepository(LegendaryHero::class)->findOneBy(['id' => $id]);
             $em->remove($legendary_hero);

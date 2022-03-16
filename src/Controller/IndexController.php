@@ -18,6 +18,7 @@ class IndexController extends AbstractController
     public function index(EntityManagerInterface $em): Response
     {
 
+        // recherche dans la BDD de tous entitées dans les classes pour la navbar
         $races = $em->getRepository(Race::class)->findAll();
         $legendary_heros = $em->getRepository(LegendaryHero::class)->findAll();
         $heros = $em->getRepository(Hero::class)->findAll();

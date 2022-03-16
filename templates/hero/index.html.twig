@@ -22,11 +22,6 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ path('index') }}">Home</a>
                     </li>
-                    {% if is_granted('ROLE_ADMIN') %} {# check si l'utilisateur est admin #}
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ path('adminPage') }}">AdminPage</a>
-                        </li>
-                    {% endif %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Race
@@ -56,6 +51,12 @@
                                 <a class="dropdown-item" href="{{ path('hero', { 'id': hero.id }) }}">{{ hero.name }}</a>
                             {% endfor %}
                         </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ path('app_modify_hero', {id:hero.id}) }}">Modify</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ path('delete_hero', {id:hero.id}) }}">Delete</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ path('logout') }}">Logout</a>
@@ -138,7 +139,6 @@
 
 
     {% if is_granted('ROLE_ADMIN') %} {# check si l'utilisateur est admin #}
-        <h3>Create</h3>
 
         <div class="formulaire">
             <div class="container">
@@ -203,31 +203,31 @@
                     {% if hero.MissileDamage is not null %}
                         <div class="mb-3">
                             <label for="missile_damage" class="form-label">missile_damage</label>
-                            <input required type="text" class="form-control" id="missile_damage" name="missile_damage" value="NULL">
+                            <input required type="text" class="form-control" id="missile_damage" name="missile_damage">
                         </div>
                         <div class="mb-3">
                             <label for="armour_piercing_missile_damage" class="form-label">armour_piercing_missile_damage</label>
-                            <input required type="text" class="form-control" id="armour_piercing_missile_damage" name="armour_piercing_missile_damage" value="">
+                            <input required type="text" class="form-control" id="armour_piercing_missile_damage" name="armour_piercing_missile_damage">
                         </div>
                         <div class="mb-3">
                             <label for="explosive_damage" class="form-label">explosive_damage</label>
-                            <input required type="text" class="form-control" id="explosive_damage" name="explosive_damage" value="NULL">
+                            <input required type="text" class="form-control" id="explosive_damage" name="explosive_damage">
                         </div>
                         <div class="mb-3">
                             <label for="explosive_armour_piercing_damage" class="form-label">explosive_armour_piercing_damage</label>
-                            <input required type="text" class="form-control" id="explosive_armour_piercing_damage" name="explosive_armour_piercing_damage" value="NULL">
+                            <input required type="text" class="form-control" id="explosive_armour_piercing_damage" name="explosive_armour_piercing_damage">
                         </div>
                         <div class="mb-3">
                             <label for="reload_time" class="form-label">reload_time</label>
-                            <input required type="text" class="form-control" id="reload_time" name="reload_time" value="NULL">
+                            <input required type="text" class="form-control" id="reload_time" name="reload_time">
                         </div>
                         <div class="mb-3">
                             <label for="ammunition" class="form-label">ammunition</label>
-                            <input required type="text" class="form-control" id="ammunition" name="ammunition" value="NULL">
+                            <input required type="text" class="form-control" id="ammunition" name="ammunition">
                         </div>
                         <div class="mb-3">
                             <label for="range_shot" class="form-label">range_shot</label>
-                            <input required type="text" class="form-control" id="range_shot" name="range_shot" value="NULL">
+                            <input required type="text" class="form-control" id="range_shot" name="range_shot">
                         </div>
                     {% else %}
                         <div class="mb-3">
@@ -279,9 +279,5 @@
         </div>
     {% endif %}
 
-    <h3>Modify</h3>
-    <a href="{{ path('app_modify_hero', {id:hero.id}) }}">Modify</a>
 
-    <h3>Delete</h3>
-    <a href="{{ path('delete_hero', {id:hero.id}) }}">Delete</a>
 {% endblock %}

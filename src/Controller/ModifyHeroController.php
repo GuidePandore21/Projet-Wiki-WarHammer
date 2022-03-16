@@ -12,16 +12,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class ModifyHeroController extends AbstractController
 {
     /**
-     * @Route("/modify/hero", name="app_modify_hero")
+     * @Route("/modify/hero/{id}", name="app_modify_hero")
      */
     public function index(EntityManagerInterface $em, int $id, Request $request): Response
     {
+        // recherche dans la BDD par id un hero
         $hero = $em->getRepository(Hero::class)->findOneById($id);
 
+        // pour modifier un hero je supprime l'originale et j'en recréer un avec les valeurs qu'on a modifier
         $new_hero = new Hero();
         $data=$request->request->all();
 
         if(count($data) > 0){
+            $hero = $em->getRepository(Hero::class)->findOneBy(['id' => $id]);
+            $em->remove($hero);
+            $em->flush();
+
             $new_hero->setName($data["name"]);
             $new_hero->setGallery($data["gallery"]);
             $new_hero->setDescription($data["description"]);

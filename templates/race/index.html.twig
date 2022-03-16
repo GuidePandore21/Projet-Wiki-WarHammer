@@ -24,11 +24,6 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ path('index') }}">Home</a>
                     </li>
-                    {% if is_granted('ROLE_ADMIN') %} {# check si l'utilisateur est admin #}
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ path('adminPage') }}">AdminPage</a>
-                        </li>
-                    {% endif %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Race
@@ -58,6 +53,12 @@
                                 <a class="dropdown-item" href="{{ path('hero', { 'id': hero.id }) }}">{{ hero.name }}</a>
                             {% endfor %}
                         </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ path('app_modify_race', {id:race.id}) }}">Modify</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ path('delete_race', {id:race.id}) }}">Delete</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ path('logout') }}">Logout</a>
@@ -112,7 +113,6 @@
     </div>
 
     {% if is_granted('ROLE_ADMIN') %} {# check si l'utilisateur est admin #}
-        <h3>Create</h3>
 
         <div class="formulaire">
             <div class="container">
@@ -153,11 +153,6 @@
             </div>
         </div>
 
-        <h3>Modify</h3>
-        <a href="{{ path('app_modify_race', {id:race.id}) }}">Modify</a>
-
-        <h3>Delete</h3>
-        <a href="{{ path('delete_race', {id:race.id}) }}">Delete</a>
     {% endif %}
 
 {% endblock %}
