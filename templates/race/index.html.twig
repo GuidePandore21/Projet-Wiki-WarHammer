@@ -67,8 +67,6 @@
         </div>
     </nav>
 
-
-
     <div class="container">
 
         <br>
@@ -113,8 +111,53 @@
 
     </div>
 
+    {% if is_granted('ROLE_ADMIN') %} {# check si l'utilisateur est admin #}
+        <h3>Create</h3>
 
+        <div class="formulaire">
+            <div class="container">
+                <h2>add race</h2>
+                <form action="" method="POST">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">name</label>
+                        <input required type="text" class="form-control" id="name" name="name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="gallery" class="form-label">gallery</label>
+                        <input type="text" class="form-control" id="gallery" name="gallery">
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">description</label>
+                        <input required type="text" class="form-control" id="description" name="description">
+                    </div>
+                    <div class="mb-3">
+                        <label for="lore" class="form-label">lore</label>
+                        <input required type="text" class="form-control" id="lore" name="lore">
+                    </div>
+                    <div class="mb-3">
+                        <label for="in_battle" class="form-label">in_battle</label>
+                        <input required type="text" class="form-control" id="in_battle" name="in_battle">
+                    </div>
+                    <div class="mb-3">
+                        <label for="in_campaign" class="form-label">in_campaign</label>
+                        <input required type="text" class="form-control" id="in_campaign" name="in_campaign">
+                    </div>
+                    <div class="mb-3">
+                        <label for="strategy" class="form-label">strategy</label>
+                        <input required type="text" class="form-control" id="strategy" name="strategy">
+                    </div>
 
+                    <!--Bouton pour valider-->
+                    <input type="submit" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
 
+        <h3>Modify</h3>
+        <a href="{{ path('app_modify_race', {id:race.id}) }}">Modify</a>
+
+        <h3>Delete</h3>
+        <a href="{{ path('delete_race', {id:race.id}) }}">Delete</a>
+    {% endif %}
 
 {% endblock %}

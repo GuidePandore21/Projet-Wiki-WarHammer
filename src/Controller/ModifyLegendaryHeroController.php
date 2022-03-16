@@ -2,34 +2,30 @@
 
 namespace App\Controller;
 
-use App\Entity\Hero;
 use App\Entity\LegendaryHero;
-use App\Entity\Race;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class LegendaryHeroController extends AbstractController
+class ModifyLegendaryHeroController extends AbstractController
 {
     /**
-     * @Route("/legendary_hero/{id}", name="legendary_hero")
+     * @Route("/modify/legendary/hero/{id}", name="app_modify_legendary_hero")
      */
-
     public function index(EntityManagerInterface $em, int $id, Request $request): Response
     {
         $legendary_hero = $em->getRepository(LegendaryHero::class)->findOneById($id);
 
-        $races = $em->getRepository(Race::class)->findAll();
-        $legendary_heros = $em->getRepository(LegendaryHero::class)->findAll();
-        $heros = $em->getRepository(Hero::class)->findAll();
-
         $new_legendary_hero = new LegendaryHero();
-        $data=$request->request->all();
+        $data = $request->request->all();
 
-        if(count($data) > 0){
+        if (count($data) > 0) {
+            $legendary_hero = $em->getRepository(LegendaryHero::class)->findOneBy(['id' => $id]);
+            $em->remove($legendary_hero);
+            $em->flush();
+
             $new_legendary_hero->setName($data["name"]);
             $new_legendary_hero->setGallery($data["gallery"]);
             $new_legendary_hero->setDescription($data["description"]);
@@ -62,25 +58,9 @@ class LegendaryHeroController extends AbstractController
             $em->flush();
         }
 
-        return $this->render('legendary_hero/index.html.twig', [
-            'controller_name' => 'RaceController',
+        return $this->render('modify_legendary_hero/index.html.twig', [
+            'controller_name' => 'ModifyLegendaryHeroController',
             'legendary_hero' => $legendary_hero,
-            'races' => $races,
-            'legendary_heros' => $legendary_heros,
-            'heros' => $heros,
         ]);
-    }
-
-    /**
-     * @Route("/delete_legendary_hero/{id}", name="delete_legendary_hero")
-     */
-    public function delete_legendary_hero($id, EntityManagerInterface $em): Response
-    {
-
-        $legendary_hero=$em->getRepository(LegendaryHero::class)->findOneBy(['id'=>$id]);
-        $em->remove($legendary_hero);
-        $em->flush();
-
-        return  $this->redirectToRoute("index",[], Response::HTTP_SEE_OTHER);
     }
 }

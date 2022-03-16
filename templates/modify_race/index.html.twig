@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ModifyRaceController!{% endblock %}
+
+{% block body %}
+    <h3>Modifier</h3>
+
+    <div class="formulaire">
+        <div class="container">
+            <h2>Modififier une Race</h2>
+            <form action="" method="POST">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Le nom de la race</label>
+                    <input required type="text" class="form-control" id="name" name="name" value="{{ race.name }}">
+                </div>
+                <div class="mb-3">
+                    <label for="gallery" class="form-label">L'URL de l'image</label>
+                    <input type="text" class="form-control" id="gallery" name="gallery" value="{{ race.gallery }}">
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">La description</label>
+                    <input required type="text" class="form-control" id="description" name="description" value="{{ race.description }}">
+                </div>
+                <div class="mb-3">
+                    <label for="lore" class="form-label">Le lore</label>
+                    <input required type="text" class="form-control" id="lore" name="lore" value="{{ race.lore }}">
+                </div>
+                <div class="mb-3">
+                    <label for="in_battle" class="form-label">in_battle</label>
+                    <input required type="text" class="form-control" id="in_battle" name="in_battle" value="{{ race.InBattle }}">
+                </div>
+                <div class="mb-3">
+                    <label for="in_campaign" class="form-label">in_campaign</label>
+                    <input required type="text" class="form-control" id="in_campaign" name="in_campaign" value="{{ race.InCampaign }}">
+                </div>
+                <div class="mb-3">
+                    <label for="strategy" class="form-label">strategy</label>
+                    <input required type="text" class="form-control" id="strategy" name="strategy" value="{{ race.strategy }}" >
+                </div>
+
+                <!--Bouton pour valider-->
+                <input href="{{ path('index') }}" type="submit" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+{% endblock %}

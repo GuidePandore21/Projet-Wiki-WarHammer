@@ -1,0 +1,114 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ModifyHeroController!{% endblock %}
+
+{% block body %}
+    <div class="formulaire">
+        <div class="container">
+            <h2>Add legendary hero</h2>
+            <form action="" method="POST">
+                <div class="mb-3">
+                    <label for="name" class="form-label">name</label>
+                    <input required type="text" class="form-control" id="name" name="name" {{ hero.name }}>
+                </div>
+                <div class="mb-3">
+                    <label for="gallery" class="form-label">gallery</label>
+                    <input type="text" class="form-control" id="gallery" name="gallery" {{ hero.gallery }}>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">description</label>
+                    <input required type="text" class="form-control" id="description" name="description" {{ hero.description }}>
+                </div>
+                <div class="mb-3">
+                    <label for="abilities" class="form-label">abilities</label>
+                    <input required type="text" class="form-control" id="abilities" name="abilities" {{ hero.abilities }}>
+                </div>
+                <div class="mb-3">
+                    <label for="mounts" class="form-label">mounts</label>
+                    <input required type="text" class="form-control" id="mounts" name="mounts" {{ hero.mounts }}>
+                </div>
+                <div class="mb-3">
+                    <label for="strategy" class="form-label">strategy</label>
+                    <input required type="text" class="form-control" id="strategy" name="strategy" {{ hero.strategy }}>
+                </div>
+                <div class="mb-3">
+                    <label for="health" class="form-label">health</label>
+                    <input required type="text" class="form-control" id="health" name="health" {{ hero.health }}>
+                </div>
+                <div class="mb-3">
+                    <label for="leadership" class="form-label">leadership</label>
+                    <input required type="text" class="form-control" id="leadership" name="leadership" {{ hero.leadership }}>
+                </div>
+                <div class="mb-3">
+                    <label for="melee_attack" class="form-label">melee_attack</label>
+                    <input required type="text" class="form-control" id="melee_attack" name="melee_attack" {{ hero.melee_attack }}>
+                </div>
+                <div class="mb-3">
+                    <label for="melee_defence" class="form-label">melee_defence</label>
+                    <input required type="text" class="form-control" id="melee_defence" name="melee_defence" {{ hero.melee_defence }}>
+                </div>
+                <div class="mb-3">
+                    <label for="charge_bonus" class="form-label">charge_bonus</label>
+                    <input required type="text" class="form-control" id="charge_bonus" name="charge_bonus" {{ hero.charge_bonus }}>
+                </div>
+                <div class="mb-3">
+                    <label for="missile_resistance" class="form-label">missile_resistance</label>
+                    <input required type="text" class="form-control" id="missile_resistance" name="missile_resistance" {{ hero.missile_resistance }}>
+                </div>
+                <div class="mb-3">
+                    <label for="weapon_damage" class="form-label">weapon_damage</label>
+                    <input required type="text" class="form-control" id="weapon_damage" name="weapon_damage" {{ hero.weapon_damage }}>
+                </div>
+                <div class="mb-3">
+                    <label for="armour_piercing_damage" class="form-label">armour_piercing_damage</label>
+                    <input required type="text" class="form-control" id="armour_piercing_damage" name="armour_piercing_damage" {{ hero.armour_piercing_damage }}>
+                </div>
+                {% if hero.MissileDamage is not null %}
+                    <div class="mb-3">
+                        <label for="missile_damage" class="form-label">missile_damage</label>
+                        <input required type="text" class="form-control" id="missile_damage" name="missile_damage" {{ hero.missile_damage }}>
+                    </div>
+                    <div class="mb-3">
+                        <label for="armour_piercing_missile_damage" class="form-label">armour_piercing_missile_damage</label>
+                        <input required type="text" class="form-control" id="armour_piercing_missile_damage" name="armour_piercing_missile_damage" {{ hero.armour_piercing_missile_damage }}>
+                    </div>
+                    <div class="mb-3">
+                        <label for="explosive_damage" class="form-label">explosive_damage</label>
+                        <input required type="text" class="form-control" id="explosive_damage" name="explosive_damage" {{ hero.explosive_damage }}>
+                    </div>
+                    <div class="mb-3">
+                        <label for="explosive_armour_piercing_damage" class="form-label">explosive_armour_piercing_damage</label>
+                        <input required type="text" class="form-control" id="explosive_armour_piercing_damage" name="explosive_armour_piercing_damage" {{ hero.explosive_armour_piercing_damage }}>
+                    </div>
+                    <div class="mb-3">
+                        <label for="reload_time" class="form-label">reload_time</label>
+                        <input required type="text" class="form-control" id="reload_time" name="reload_time" {{ hero.reload_time }}>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ammunition" class="form-label">ammunition</label>
+                        <input required type="text" class="form-control" id="ammunition" name="ammunition" {{ hero.ammunition }}>
+                    </div>
+                    <div class="mb-3">
+                        <label for="range_shot" class="form-label">range_shot</label>
+                        <input required type="text" class="form-control" id="range_shot" name="range_shot" {{ hero.range_shot }}>
+                    </div>
+                {% endif %}
+                <div class="mb-3">
+                    <label for="magical_attacks" class="form-label">magical_attacks</label>
+                    <input required type="text" class="form-control" id="magical_attacks" name="magical_attacks" {{ hero.magical_attacks }}>
+                </div>
+                <div class="mb-3">
+                    <label for="flaming_attacks" class="form-label">flaming_attacks</label>
+                    <input required type="text" class="form-control" id="flaming_attacks" name="flaming_attacks" {{ hero.flaming_attacks }}>
+                </div>
+                <div class="mb-3">
+                    <label for="bonus_vs_large" class="form-label">bonus_vs_large</label>
+                    <input required type="text" class="form-control" id="bonus_vs_large" name="bonus_vs_large" {{ hero.bonus_vs_large }}>
+                </div>
+
+                <!--Bouton pour valider-->
+                <input type="submit" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+{% endblock %}

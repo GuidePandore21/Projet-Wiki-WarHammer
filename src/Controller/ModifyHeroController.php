@@ -3,29 +3,20 @@
 namespace App\Controller;
 
 use App\Entity\Hero;
-use App\Entity\LegendaryHero;
-use App\Entity\MagicDomain;
-use App\Entity\Race;
-use App\Entity\Spell;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HeroController extends AbstractController
+class ModifyHeroController extends AbstractController
 {
     /**
-     * @Route("/hero/{id}", name="hero")
+     * @Route("/modify/hero", name="app_modify_hero")
      */
     public function index(EntityManagerInterface $em, int $id, Request $request): Response
     {
         $hero = $em->getRepository(Hero::class)->findOneById($id);
-
-        $races = $em->getRepository(Race::class)->findAll();
-        $legendary_heros = $em->getRepository(LegendaryHero::class)->findAll();
-        $heros = $em->getRepository(Hero::class)->findAll();
 
         $new_hero = new Hero();
         $data=$request->request->all();
@@ -59,25 +50,9 @@ class HeroController extends AbstractController
             $em->flush();
         }
 
-        return $this->render('hero/index.html.twig', [
-            'controller_name' => 'HeroController',
+        return $this->render('modify_hero/index.html.twig', [
+            'controller_name' => 'ModifyHeroController',
             'hero' => $hero,
-            'races' => $races,
-            'legendary_heros' => $legendary_heros,
-            'heros' => $heros,
         ]);
-    }
-
-    /**
-     * @Route("/delete_hero/{id}", name="delete_hero")
-     */
-    public function delete_hero($id, EntityManagerInterface $em): Response
-    {
-
-        $hero=$em->getRepository(Hero::class)->findOneBy(['id'=>$id]);
-        $em->remove($hero);
-        $em->flush();
-
-        return  $this->redirectToRoute("index",[], Response::HTTP_SEE_OTHER);
     }
 }
